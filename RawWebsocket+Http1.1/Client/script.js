@@ -16,7 +16,7 @@ function fetchEmployees() {
     const employeeList = document.getElementById("employeeList");
     employeeList.innerHTML = "";
 
-    fetch("http://localhost:8085/api/rest/employees")
+    fetch("http://localhost:8080/api/rest/employees")
         .then(response => response.json())
         .then(data => {
             data.forEach(employee => {
@@ -60,7 +60,7 @@ function addEmployee() {
         department
     };
 
-    fetch("http://localhost:8085/api/rest/employees", {
+    fetch("http://localhost:8080/api/rest/employees", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -80,7 +80,7 @@ function addEmployee() {
 function fetchEmployeeById() {
     const employeeId = document.getElementById("employeeIdInput").value;
 
-    fetch(`http://localhost:8085/api/rest/employees/${employeeId}`)
+    fetch(`http://localhost:8080/api/rest/employees/${employeeId}`)
         .then(response => response.json())
         .then(data => {
             console.log("Fetched employee:", data);
@@ -111,7 +111,7 @@ function displayFetchedEmployee(employee) {
 function deleteEmployee() {
     const employeeId = document.getElementById("deleteEmployeeId").value;
 
-    fetch(`http://localhost:8085/api/rest/employees?id=${employeeId}`, {
+    fetch(`http://localhost:8080/api/rest/employees?id=${employeeId}`, {
         method: "DELETE"
     })
     .then(response => {
@@ -140,7 +140,7 @@ function updateEmployee() {
     const email = document.getElementById("updateEmailInput").value;
     const department = document.getElementById("updateDepartmentInput").value;
 
-    fetch(`http://localhost:8085/api/rest/employees/${employeeId}`)
+    fetch(`http://localhost:8080/api/rest/employees/${employeeId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("Employee not found.");
@@ -157,7 +157,7 @@ function updateEmployee() {
                 department: department || existingEmployee.department
             };
 
-            return fetch(`http://localhost:8085/api/rest/employees/${employeeId}`, {
+            return fetch(`http://localhost:8080/api/rest/employees/${employeeId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -184,7 +184,7 @@ function updateEmployee() {
 }
 
 function connectWebSocket() {
-    webSocket = new WebSocket("ws://localhost:8085/api/websocket");
+    webSocket = new WebSocket("ws://localhost:8080/api/websocket");
 
     webSocket.onopen = event => {
         console.log("WebSocket connection opened:", event);
